@@ -1,39 +1,39 @@
-# import tkinter, time, and datetime
-from tkinter import * 
-import time
-from datetime import datetime
+import tkinter as tk
+from time import strftime
+import math
 
-# configue your  GUI
-root=Tk()
-root.config(background='black')
-root.title('BMB_clock')
-root.geometry('400x300')
+#  settings for the look of the clock
+root = tk.Tk()
+root.title('BMB clock')
 
-# create a function to display the date and time 
-def clock():
-    hour=time.strftime('%H')
-    minute=time.strftime('%M')
-    second=time.strftime('%S')
-    day= time.strftime('%A')
-    month= time.strftime('%m')
-    year = time.strftime('%y')
-    labe1.config(text= hour + ':' + minute + ':' + second)
-    labe1.after(1000, clock)
-    label2.config(text=day + ';' + month + ':' + year)
+canvas = tk.Canvas(root,width=400,height=400,bg='white')
+canvas.pack()
 
-# config the time label
-labe1= Label(root, text='', font='times, 48', fg='#033a06', bg='black')
-labe1.pack(pady=15)
+label =tk.Label(root,font=('arial', 14, 'bold'), background='white', foreground='black')
+label.pack(anchor='center')
 
-# config the date label
-label2= Label(root, text='', font='times,20', fg='#012703', bg='black')
-label2.pack(pady=30)
+# creat a function to display the time
+def time_update():
+    current_time = strftime('%H:%M:%S %p')
+    label.config(text=current_time)
+    label.after(1000,time_update)
 
+# draw the clock using canvas
+def draw_the_clock():
+    canvas.delete('all')
+    canvas.create_oval(10, 10,390,390, width=2) #clock face
 
-clock()
+    for i in range(12):
+        angle = -i * 30
+        x1 = 200 + 160 * math.cos(math.radians(angle))
+        y1 = 200 - 160 * math.sin(math.radians(angle))
+        x2 = 200 + 180 * math.cos(math.radians(angle))
+        y2 = 200 - 180 * math.sin(math.radians(angle))
+        canvas.create_line(x1, y1, x2, y2, width=3)
 
-
-
-
+# call your functions to start the clock
+time_update()
+draw_the_clock()
 
 root.mainloop()
+
