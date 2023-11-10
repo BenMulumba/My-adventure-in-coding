@@ -7,4 +7,12 @@ to build the clock and also canvas to design to form of the clock
 - import tkinter, strfptime and canvas
 
 #step 2
-- create a function that will 
+- create a function that will display the clock 
+
+#step 3 
+ create another function to design the clock timer
+
+#step 4
+  
+
+
